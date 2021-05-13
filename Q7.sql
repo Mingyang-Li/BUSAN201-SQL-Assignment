@@ -4,14 +4,38 @@
 - SalesOrderDetailID - SalesOrderDetail
 - Product Name - Product
 - ProductModel Name - ProductModel
+
+Order:
+1. Header
+2. Customer
+3. Detail
+4. Product
+5. Product model
 */
 
 SELECT 
-	SalesLT.Product.Name, 
-	SalesLT.ProductModel.Name, 
-	SalesLT.ProductModel.ProductModelID,
-	SalesLT.SalesOrderHeader.SalesOrderNumber
-FROM SalesLT.Product
-INNER JOIN SalesLT.ProductModel ON Product.ProductModelID = SalesLT.ProductModel.ProductModelID
-INNER JOIN SalesLT.SalesOrderHeader ON SalesOrderDetail.ProductID = SalesLT.Product.ProductID
--- WHERE CONTAINS(SalesLT.ProductModel.Name, 'Tire')
+	SalesOrderHeader.SalesOrderID, 
+	SalesOrderHeader.SalesOrderNumber,
+	SalesOrderDetail.ProductID,		
+	Customer.CompanyName,
+	Product.Name as ProductName,
+	ProductModel.Name as ProductModel
+FROM SalesLT.SalesOrderHeader
+
+INNER JOIN SalesLT.SalesOrderDetail
+ON SalesLT.SalesOrderHeader.SalesOrderID = SalesLT.SalesOrderDetail.SalesOrderID
+
+INNER JOIN SalesLT.Customer
+ON SalesLT.SalesOrderHeader.CustomerID = SalesLT.Customer.CustomerID
+
+INNER JOIN SalesLT.Product
+ON SalesLT.SalesOrderDetail.ProductID = SalesLT.Product.ProductID
+
+INNER JOIN SalesLT.ProductModel
+ON SalesLT.Product.ProductModelID = SalesLT.ProductModel.ProductModelID
+
+WHERE SalesLT.Product.Name LIKE '%Tire'
+
+ORDER BY SalesOrderHeader.SalesOrderID
+
+--ans: SO80009
