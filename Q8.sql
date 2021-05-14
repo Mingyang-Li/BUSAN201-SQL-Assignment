@@ -18,6 +18,7 @@ SELECT
 	UnitPriceDiscount,
     LineTotal,
     Product.Name as ProductName,
+	Culture,
     ProductDescription.Description
 FROM SalesLT.SalesOrderDetail
 
@@ -33,4 +34,9 @@ ON ProductModelProductDescription.ProductModelID = Product.ProductModelID
 JOIN SalesLT.ProductDescription
 ON ProductModelProductDescription.ProductDescriptionID = ProductDescription.ProductDescriptionID
 
-WHERE UnitPriceDiscount = 0.00 -- without discounts
+WHERE 
+    UnitPriceDiscount = 0.00 -- without discounts
+    AND Culture = 'en'
+ORDER BY SalesOrderDetailID 
+
+--ans: Serious back-country riding. Perfect for all levels of competition. Uses the same HL Frame as the Mountain-100.
