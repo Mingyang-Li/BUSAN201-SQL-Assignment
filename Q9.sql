@@ -7,6 +7,11 @@ Steps:
 3. AddressID - CustomerAddress (CustomerID, AddressID)
 
 FIND: name of the city of the address in row 3.
+
+JOIN steps:
+Address (AddressID) => 
+    CustomerAddress (CustomerID, AddressID) => 
+        AddressID (CountryRegion)
 */
 
 SELECT
