@@ -19,7 +19,8 @@ SELECT
     LineTotal,
     Product.Name as ProductName,
 	Culture,
-    ProductDescription.Description
+    ProductDescription.Description,
+	ProductDescription.rowguid
 FROM SalesLT.SalesOrderDetail
 
 JOIN SalesLT.Product
@@ -39,4 +40,4 @@ WHERE
     AND Culture = 'en'
 ORDER BY SalesOrderDetailID 
 
---ans: Serious back-country riding. Perfect for all levels of competition. Uses the same HL Frame as the Mountain-100.
+--ans: 130709E6-8512-49B9-9F62-1F5C99152056

@@ -5,7 +5,7 @@
 - Product Name - Product
 - ProductModel Name - ProductModel
 
-Order:
+Order of joins:
 1. Header
 2. Customer
 3. Detail

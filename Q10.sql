@@ -37,3 +37,5 @@ WHERE
 	OR SalesLT.ProductCategory.Name LIKE '%Tires and Tubes%'
 	OR SalesLT.ProductCategory.Name LIKE '%Vests%'
 	OR SalesLT.ProductCategory.Name LIKE '%Wheels%'
+
+--ans: 102
