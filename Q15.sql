@@ -30,7 +30,7 @@ SELECT
     --SalesLT.SalesOrderDetail.ProductID,
 	--SalesLT.SalesOrderDetail.LineTotal AS 'TotalRevOfThisColor'
 	SalesLT.Product.Color,
-    SUM(SalesLT.SalesOrderDetail.LineTotal) AS 'TotalRevOfThisColor'
+    SUM(SalesLT.SalesOrderDetail.LineTotal) AS 'Total Revenue of This Color'
 
 FROM SalesLT.SalesOrderHeader
 

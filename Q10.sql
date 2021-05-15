@@ -1,4 +1,5 @@
 /*
+Q10
 Find all customers who have ever ordered products categorised as any of the following four categories:
 1. Bike Stands
 2. Tires and Tubes
