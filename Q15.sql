@@ -29,8 +29,8 @@ SELECT
     --SalesLT.SalesOrderHeader.SalesOrderID,
     --SalesLT.SalesOrderDetail.ProductID,
 	--SalesLT.SalesOrderDetail.LineTotal AS 'TotalRevOfThisColor'
-	SalesLT.Product.Color,
-    SUM(SalesLT.SalesOrderDetail.LineTotal) AS 'Total Revenue of This Color'
+	--SalesLT.Product.Color,
+    SUM(SalesLT.SalesOrderDetail.LineTotal) AS 'Total Revenue of Each Color'
 
 FROM SalesLT.SalesOrderHeader
 
@@ -42,12 +42,15 @@ ON SalesLT.Product.ProductID = SalesLT.SalesOrderDetail.ProductID
 
 WHERE YEAR(OrderDate) = 2017
 
-GROUP BY SalesLT.Product.Color
+GROUP BY 
+    CASE
+        WHEN SalesLT.Product.Color IS NULL OR SalesLT.Product.Color LIKE '%No Colour%'
+            THEN 'NOCOLOUR'
+        ELSE SalesLT.Product.Color
+	END
 
-ORDER BY SUM(SalesLT.SalesOrderDetail.LineTotal)  DESC
+ORDER BY (SUM(SalesLT.SalesOrderDetail.LineTotal)) DESC
 
-/*
-WHERE 
-    SalesLT.Product.Color IS NULL
-    OR SalesLT.Product.Color LIKE '%No Colour%'
+/*ans: 622956.35
+Steps: manually add up 560044.121300 + 41151.047800 + 21761.176100 = 622956.3452 => 622956.35
 */
