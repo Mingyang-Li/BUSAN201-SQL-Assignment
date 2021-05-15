@@ -52,5 +52,5 @@ GROUP BY
 ORDER BY (SUM(SalesLT.SalesOrderDetail.LineTotal)) DESC
 
 /*ans: 622956.35
-Steps: manually add up 560044.121300 + 41151.047800 + 21761.176100 = 622956.3452 => 622956.35
+Steps: manually add up 560044.121300 + 41151.047800 + 21761.176100 = 622956.3452 => 622956.35 (round it last!)
 */
