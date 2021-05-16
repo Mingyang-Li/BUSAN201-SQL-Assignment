@@ -36,7 +36,7 @@ SELECT
 	ShipMethod,
 	DueDate,
 	*/
-	SUM(SalesLT.SalesOrderDetail.OrderQty * SalesLT.Product.Weight) AS 'TotalWeight'
+	ROUND(SUM(SalesLT.SalesOrderDetail.OrderQty * SalesLT.Product.Weight) / 1000, 2) AS 'TotalWeight'
 FROM SalesLT.SalesOrderHeader
 
 JOIN SalesLT.SalesOrderDetail

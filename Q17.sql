@@ -10,9 +10,9 @@ Enter into Canvas the number of customers in the list found above.
 
 SELECT 
 	SalesLT.SalesOrderHeader.CustomerID, 
-	SUM(SalesLT.SalesOrderHeader.SubTotal) AS 'Total SubTotal',
-	SUM(SalesLT.SalesOrderHeader.TaxAmt) AS 'Total TaxAmt',
-	SUM(SalesLT.SalesOrderHeader.Freight) AS 'Total Freight'
+	SUM(SalesLT.SalesOrderHeader.SubTotal) AS 'Total SubTotal'
+	--SUM(SalesLT.SalesOrderHeader.TaxAmt) AS 'Total TaxAmt',
+	--SUM(SalesLT.SalesOrderHeader.Freight) AS 'Total Freight'
 
 FROM SalesLT.SalesOrderHeader
 
@@ -20,5 +20,6 @@ JOIN SalesLT.Customer
 ON SalesLT.Customer.CustomerID = SalesLT.SalesOrderHeader.CustomerID
 
 GROUP BY SalesLT.SalesOrderHeader.CustomerID
-
--- WHEN 'Total Order Value'  < 34118.5356
+HAVING SUM(SalesLT.SalesOrderHeader.SubTotal)  < 34118.5356
+ORDER BY SUM(SalesLT.SalesOrderHeader.SubTotal) DESC
+--ANS: 25
