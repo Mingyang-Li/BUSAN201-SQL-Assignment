@@ -58,4 +58,4 @@ WHERE
 	AND Weight IS NOT NULL
 
 --ORDER BY DueDate
---ans: 7025448.93
+--ans: 7025.45
