@@ -15,5 +15,16 @@ Enter into Canvas the "answerToSubmit" value produced by this query:
 SELECT SUM(ProductCategoryID + LEN(ProductCategoryName) + ParentProductCategoryID + ParentSubCatCount) AS answerToSubmit
 FROM (
 --paste your query's code here (this is the query you write which uses a sub-query).
-) q16
+) 
 */
+
+SELECT 
+	SalesLT.ProductCategory.ProductCategoryID,
+	SalesLT.ProductCategory.Name, 
+	SalesLT.ProductCategory.ParentProductCategoryID,
+	(
+		SELECT SUM(SalesLT.ProductCategory.ParentProductCategoryID) 
+		FROM SalesLT.ProductCategory
+		WHERE SalesLT.ProductCategory.ParentProductCategoryID = SalesLT.ProductCategory.ProductCategoryID
+	) AS 'ParentSubCatCount'
+FROM SalesLT.ProductCategory
