@@ -25,11 +25,11 @@ JOIN SalesLT.Product
 ON SalesLT.Product.ProductID = SalesLT.SalesOrderDetail.ProductID
 
 WHERE 
-	SalesLT.SalesOrderHeader.OrderDate <'2017-08-01' -- order date before 31/07/2017
-    AND SalesLT.Product.SellStartDate <'2017-08-01' -- product avail for sale as at 11:59:59pm,, 31/07/2017
-	AND SalesLT.Product.SellStartDate IS NOT NULL
-	AND SalesLT.Product.SellEndDate IS NULL
-	AND SalesLT.Product.DiscontinuedDate IS NULL
+	SalesLT.SalesOrderHeader.OrderDate <'2017-07-31 23:59:59.000' -- order date before end of 31/07/2017
+    --AND SalesLT.Product.SellStartDate <'2017-07-31 23:59:59.000' -- product avail for sale before end of 31/07/2017
+	--AND SalesLT.Product.SellStartDate IS NOT NULL
+	AND (SalesLT.Product.SellEndDate > '2017-07-31 23:59:59.000' OR SalesLT.Product.SellEndDate IS NULL)
+	AND (SalesLT.Product.DiscontinuedDate > '2017-07-31 23:59:59.000' OR SalesLT.Product.DiscontinuedDate IS NULL)
 GROUP BY SalesLT.Product.ProductID
 HAVING SUM(SalesLT.SalesOrderDetail.OrderQty) > 39
---ANS: 20
+--ANS: 31
