@@ -1,4 +1,5 @@
-/*Q16
+/*
+*** QUESTION 16 (SIXTEEN) ***
 A sub-query is needed to answer this question. See the notes in the assignment specification document.
 
 Write a query to return the following result set:
@@ -15,16 +16,34 @@ Enter into Canvas the "answerToSubmit" value produced by this query:
 SELECT SUM(ProductCategoryID + LEN(ProductCategoryName) + ParentProductCategoryID + ParentSubCatCount) AS answerToSubmit
 FROM (
 --paste your query's code here (this is the query you write which uses a sub-query).
-) 
+) q16
 */
 
-SELECT
+SELECT SUM(
+		ProductCategoryID + 
+		LEN(ProductCategoryName) + 
+		ParentProductCategoryID + 
+		ParentSubCatCount
+	) AS answerToSubmit
+FROM (
+	SELECT 
 	SalesLT.ProductCategory.ProductCategoryID,
-	SalesLT.ProductCategory.Name,
-	SalesLT.ProductCategory.ParentProductCategoryID,
-	COUNT(SalesLT.ProductCategory.Name)	AS 'ParentSubCatCount'
-FROM SalesLT.ProductCategory
-LEFT JOIN SalesLT.Product 
-ON SalesLT.Product.ProductCategoryID = SalesLT.ProductCategory.ProductCategoryID
-WHERE SalesLT.ProductCategory.ProductCategoryID >= 1000
-GROUP BY SalesLT.ProductCategory.ProductCategoryID, SalesLT.ProductCategory.Name,	SalesLT.ProductCategory.ParentProductCategoryID
+	SalesLT.ProductCategory.Name AS ProductCategoryName,
+	SalesLT.ProductCategory.ParentProductCategoryID, ParentSubCatCount = ISNULL 
+	(
+		(
+			SELECT
+				COUNT(SalesLT.ProductCategory.ParentProductCategoryID)
+			FROM SalesLT.ProductCategory 
+			LEFT JOIN SalesLT.ProductCategory AS ParentProductCategory 
+			ON SalesLT.Product.ProductCategoryID = SalesLT.ProductCategory.ProductCategoryID
+			WHERE SalesLT.ProductCategory.ProductCategoryID = SalesLT.Product.ProductCategoryID
+			GROUP BY SalesLT.ProductCategory.ProductCategoryID
+		), 0
+	) 
+	FROM SalesLT.ProductCategory
+	LEFT JOIN SalesLT.Product
+	ON SalesLT.Product.ProductCategoryID = SalesLT.ProductCategory.ProductCategoryID
+	WHERE SalesLT.ProductCategory.ProductCategoryID > 1000
+) q16
+--ans: 255106
