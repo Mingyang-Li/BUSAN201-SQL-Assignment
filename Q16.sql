@@ -18,13 +18,13 @@ FROM (
 ) 
 */
 
-SELECT 
+SELECT
 	SalesLT.ProductCategory.ProductCategoryID,
-	SalesLT.ProductCategory.Name, 
+	SalesLT.ProductCategory.Name,
 	SalesLT.ProductCategory.ParentProductCategoryID,
-	(
-		SELECT SUM(SalesLT.ProductCategory.ParentProductCategoryID) 
-		FROM SalesLT.ProductCategory
-		WHERE SalesLT.ProductCategory.ParentProductCategoryID = SalesLT.ProductCategory.ProductCategoryID
-	) AS 'ParentSubCatCount'
+	COUNT(SalesLT.ProductCategory.Name)	AS 'ParentSubCatCount'
 FROM SalesLT.ProductCategory
+LEFT JOIN SalesLT.Product 
+ON SalesLT.Product.ProductCategoryID = SalesLT.ProductCategory.ProductCategoryID
+WHERE SalesLT.ProductCategory.ProductCategoryID >= 1000
+GROUP BY SalesLT.ProductCategory.ProductCategoryID, SalesLT.ProductCategory.Name,	SalesLT.ProductCategory.ParentProductCategoryID
